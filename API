@@ -1,0 +1,28 @@
+import requests
+
+# URL corregida con el nombre correcto del Pokémon
+pokemon=str(input("nombre digite el nombre del pokemon: "))
+base_url = "https://pokeapi.co/api/v2/pokemon/" + pokemon
+response = requests.get(base_url)
+
+
+
+
+if response.status_code == 200:
+    data = response.json()
+    
+    # Filtrar información específi
+    name = data['name']
+    height = data['height']
+    weight = data['weight']
+    
+    # Obtener las habilidades
+    abilities = [ability['ability']['name'] for ability in data['abilities']]
+    
+    # Mostrar la información filtrada
+    print(f"Nombre: {name}")
+    print(f"Altura: {height}")
+    print(f"Peso: {weight}")
+    print("Habilidades:", ", ".join(abilities))
+else:
+    print("Error en la solicitud:", response.status_code)
